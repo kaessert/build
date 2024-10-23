@@ -54,6 +54,13 @@ uptest: $(UPTEST) $(KUBECTL) $(CHAINSAW) $(CROSSPLANE_CLI) $(YQ)
 # Run uptest together with all dependencies. Use `make e2e UPTEST_SKIP_DELET=true` to skip deletion of resources.
 e2e: build controlplane.down controlplane.up $(UPTEST_LOCAL_DEPLOY_TARGET) uptest #
 
+ifdef LANG_KCL
+render: kcl
+
+kcl: $(KCL) ## Generate KCL-based Composition
+	$(KCL) apis/kcl/generate.k
+endif
+
 render: $(CROSSPLANE_CLI) ${YQ}
 	@indir="./examples"; \
 	for file in $$(find $$indir -type f -name '*.yaml' ); do \
