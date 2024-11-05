@@ -98,7 +98,7 @@ render: $(CROSSPLANE_CLI) ${YQ}
 # Prints the raw rendered yaml to stdout
 render.show:
 	@$(MAKE) render > /dev/null
-	@find "$(CACHE_DIR)/render" -type f -name "*.yaml" -exec cat {} \;
+	@find "$(CACHE_DIR)/render" -type f -name '*.yaml' -exec cat {} \;
 
 YAMLLINT_FOLDER ?= ./apis
 yamllint: ## Static yamllint check
